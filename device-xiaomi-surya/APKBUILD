@@ -1,0 +1,29 @@
+# Reference: <https://postmarketos.org/devicepkg>
+pkgname=device-xiaomi-surya
+pkgdesc="Xiaomi POCO X3 NFC"
+pkgver=0.1
+pkgrel=0
+url="https://postmarketos.org"
+license="MIT"
+arch="aarch64"
+options="!check !archcheck"
+depends="
+	linux-postmarketos-qcom-sm7150
+	mesa-dri-gallium
+	mkbootimg
+	postmarketos-base
+"
+makedepends="devicepkg-dev"
+source="deviceinfo"
+
+build() {
+	devicepkg_build $startdir $pkgname
+}
+
+package() {
+	devicepkg_package $startdir $pkgname
+}
+
+sha512sums="
+f505007cc09d06e3a370e437039d72fc5e3ae5e41c5eb4eee9fcfec158f31c500aed5c1607e6be8d6b12dcb7d4460aac32d1f064acedb799b6a76a6e91eeb0be  deviceinfo
+"
