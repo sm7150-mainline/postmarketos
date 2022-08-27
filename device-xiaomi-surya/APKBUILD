@@ -16,6 +16,10 @@ depends="
 makedepends="devicepkg-dev"
 source="deviceinfo"
 
+subpackages="
+	$pkgname-nonfree-firmware:nonfree_firmware
+"
+
 build() {
 	devicepkg_build $startdir $pkgname
 }
@@ -24,6 +28,25 @@ package() {
 	devicepkg_package $startdir $pkgname
 }
 
+nonfree_firmware() {
+	pkgdesc="Firmware for GPU, Audio, Modem, WiFi, etc."
+	depends="
+		firmware-xiaomi-surya-adsp
+		firmware-xiaomi-surya-cdsp
+		firmware-xiaomi-surya-ipa
+		firmware-xiaomi-surya-modem
+		firmware-xiaomi-surya-touchscreen
+		firmware-xiaomi-surya-wlan
+		linux-firmware-ath10k
+		msm-modem
+		msm-modem-uim-selection
+		pd-mapper
+		tqftpserv
+		"
+	install="$subpkgname.post-install"
+	mkdir "$subpkgdir"
+}
+
 sha512sums="
-f505007cc09d06e3a370e437039d72fc5e3ae5e41c5eb4eee9fcfec158f31c500aed5c1607e6be8d6b12dcb7d4460aac32d1f064acedb799b6a76a6e91eeb0be  deviceinfo
+208a0ecac450df69f927976abb2f55f082e04b34aa769389e049543759ac5f6bbb688b99349a6104f8eeb461f4ad11c855f7418359049cfa7bd3edae18c7b245  deviceinfo
 "
