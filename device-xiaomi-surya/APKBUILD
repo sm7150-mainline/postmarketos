@@ -9,15 +9,22 @@ arch="aarch64"
 options="!check !archcheck"
 depends="
 	linux-postmarketos-qcom-sm7150
+	make-dynpart-mappings
 	mesa-dri-gallium
 	mkbootimg
 	postmarketos-base
+	postmarketos-update-kernel
 "
 makedepends="devicepkg-dev"
-source="deviceinfo"
+source="
+	deviceinfo
+	gtk.css
+	phoc.ini
+"
 
 subpackages="
 	$pkgname-nonfree-firmware:nonfree_firmware
+	$pkgname-phosh
 "
 
 build() {
@@ -47,6 +54,16 @@ nonfree_firmware() {
 	mkdir "$subpkgdir"
 }
 
+phosh() {
+	install_if="$pkgname=$pkgver-r$pkgrel phosh"
+	install -Dm644 "$srcdir"/gtk.css \
+		"$subpkgdir"/etc/skel/.config/gtk-3.0/gtk.css
+	install -Dm644 "$srcdir"/phoc.ini \
+		"$subpkgdir"/etc/phosh/phoc.ini
+}
+
 sha512sums="
-208a0ecac450df69f927976abb2f55f082e04b34aa769389e049543759ac5f6bbb688b99349a6104f8eeb461f4ad11c855f7418359049cfa7bd3edae18c7b245  deviceinfo
+a3f9bc903182600a9aefc6dfe25c5591f6b5c9495d5b3e1d3578f101510f37608d76697fb29092cc086d5ef6f2acc604665e468281e85139a50bdb56bd8e1808  deviceinfo
+041b755427f1878b314143e0c64502276ad2fcfa9e1eb27a5e662c9c4a75ce19a4ffcbee3b39ffd74dcc4dadada4c67d1234e391703187fd044972b713301ba9  gtk.css
+eef80842915acfa8d8bcbd9ac9fcb057ad912d582e4a78b8ddd9774ef688971d2878b83f4a54adaa1d613dce8645a85ffb25e8a98c55e32a91dfe73002e91fe0  phoc.ini
 "
