@@ -4,6 +4,7 @@ pkgrel=0
 pkgdesc="Firmware for Xiaomi POCO X3 NFC"
 subpackages="
 	$pkgname-adsp
+	$pkgname-bluetooth
 	$pkgname-cdsp
 	$pkgname-ipa
 	$pkgname-modem
@@ -14,7 +15,7 @@ url="https://github.com/sm7150-mainline/firmware-xiaomi-surya"
 arch="aarch64"
 license="proprietary"
 options="!check !strip !archcheck !tracedeps pmb:cross-native"
-_commit="8bed14c2930838d3d6ee56db8c033d5746658004"
+_commit="47ee12fa953d87d10f61f67b51addd8e26d17899"
 source="$pkgname-$_commit.tar.gz::$url/archive/$_commit/$pkgname-$_commit.tar.gz"
 builddir="$srcdir/$pkgname-$_commit"
 
@@ -28,6 +29,15 @@ adsp() {
 
 	install -Dm644 "$builddir"/adsp* -t \
 		"$subpkgdir/lib/firmware/qcom/sm7150/surya"
+}
+
+bluetooth() {
+	pkgdesc="Xiaomi POCO X3 NFC Bluetooth firmware"
+
+	install -Dm644 "$builddir"/crbtfw21.tlv -t \
+		"$subpkgdir/lib/firmware/qca"
+	install -Dm644 "$builddir"/crnv21.bin -t \
+		"$subpkgdir/lib/firmware/qca"
 }
 
 cdsp() {
@@ -70,5 +80,5 @@ wlan() {
 }
 
 sha512sums="
-733a64c315e61a6bd20051b8a4f441579cc2c48567aa92a161742b350ab9e9f0002a889bc7ab938c8231bc6d9d59759cdd77723be928c019337441ef2bc0ba2e  firmware-xiaomi-surya-8bed14c2930838d3d6ee56db8c033d5746658004.tar.gz
+cb540920f977a519e696009c62dbc70c12587d0523c57b5e0fa44432e391dadbc8b08d269ef4ab06f420a892dc98fd42900b8745b683824b91b86b4b483526b0  firmware-xiaomi-surya-47ee12fa953d87d10f61f67b51addd8e26d17899.tar.gz
 "
