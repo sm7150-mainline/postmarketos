@@ -39,6 +39,7 @@ nonfree_firmware() {
 	pkgdesc="Firmware for GPU, Audio, Modem, WiFi, etc."
 	depends="
 		firmware-xiaomi-surya-adsp
+		firmware-xiaomi-surya-bluetooth
 		firmware-xiaomi-surya-cdsp
 		firmware-xiaomi-surya-ipa
 		firmware-xiaomi-surya-modem
