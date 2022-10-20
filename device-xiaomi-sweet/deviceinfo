@@ -21,7 +21,7 @@ deviceinfo_screen_height="2400"
 
 # Bootloader related
 deviceinfo_flash_method="fastboot"
-deviceinfo_kernel_cmdline="PMOS_NO_OUTPUT_REDIRECT"
+deviceinfo_kernel_cmdline="PMOS_NO_OUTPUT_REDIRECT PMOS_NOSPLASH console=tty0"
 deviceinfo_flash_fastboot_partition_vbmeta="vbmeta"
 deviceinfo_flash_fastboot_partition_dtbo="dtbo"
 deviceinfo_generate_bootimg="true"
