@@ -6,12 +6,13 @@ subpackages="
 	$pkgname-adsp
 	$pkgname-cdsp
 	$pkgname-modem
+	$pkgname-wlan
 	"
 url="https://github.com/sm7150-mainline/firmware-xiaomi-sweet"
 arch="aarch64"
 license="proprietary"
 options="!check !strip !archcheck !tracedeps pmb:cross-native"
-_commit="859b9393e65f61ea848fe917cdf45a8e025c38a6"
+_commit="faa818d310841644584442ac515f45f5c3a7c93f"
 source="$pkgname-$_commit.tar.gz::$url/archive/$_commit/$pkgname-$_commit.tar.gz"
 builddir="$srcdir/$pkgname-$_commit"
 
@@ -34,7 +35,6 @@ cdsp() {
 		"$subpkgdir/lib/firmware/qcom/sm7150/sweet"
 }
 
-
 modem() {
 	pkgdesc="Xiaomi Redmi Note 10 Pro modem firmware"
 
@@ -46,7 +46,14 @@ modem() {
 		-type f -exec chmod 0644 {} \;
 }
 
+wlan() {
+	pkgdesc="Xiaomi Redmi Note 10 Pro wlan firmware"
+
+	install -Dm644 "$builddir"/wlanmdsp.mbn -t \
+		"$subpkgdir/lib/firmware/qcom/sm7150/sweet"
+}
+
 
 sha512sums="
-d29d4d9efd30a722f49d6ca5b1477c22453ffe583ca405e02fc53752991477ea28bea7f43ad02361cd8ffe418adbffc516bda0db922a056e06f943909f042ff3  firmware-xiaomi-sweet-859b9393e65f61ea848fe917cdf45a8e025c38a6.tar.gz
+adf579f68c62db582b125078ed4c3b5b706910bbe6f470b2f74974bef5f649d14fadf86c2d6477c090854b620e92338960ec0d7e0e29230552dd6a5f0e3a87fe  firmware-xiaomi-sweet-faa818d310841644584442ac515f45f5c3a7c93f.tar.gz
 "
