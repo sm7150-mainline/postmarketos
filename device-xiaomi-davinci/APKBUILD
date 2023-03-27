@@ -17,12 +17,35 @@ depends="
 makedepends="devicepkg-dev"
 source="deviceinfo"
 
+subpackages="
+	$pkgname-nonfree-firmware:nonfree_firmware
+"
+
 build() {
 	devicepkg_build $startdir $pkgname
 }
 
 package() {
 	devicepkg_package $startdir $pkgname
+}
+
+nonfree_firmware() {
+	pkgdesc="Firmware for GPU, Audio, Modem, WiFi, etc."
+	depends="
+		firmware-xiaomi-davinci-adsp
+		firmware-xiaomi-davinci-cdsp
+		firmware-xiaomi-davinci-ipa
+		firmware-xiaomi-davinci-modem
+		firmware-xiaomi-davinci-wlan
+		linux-firmware-ath10k
+		linux-firmware-qcom
+		msm-modem
+		msm-modem-uim-selection
+		pd-mapper
+		tqftpserv
+		"
+	install="$subpkgname.post-install"
+	mkdir "$subpkgdir"
 }
 
 sha512sums="

@@ -1,0 +1,66 @@
+pkgname=firmware-xiaomi-davinci
+pkgver=1
+pkgrel=0
+pkgdesc="Firmware for Xiaomi Mi 9T / Redmi K20"
+subpackages="
+	$pkgname-adsp
+	$pkgname-cdsp
+	$pkgname-ipa
+	$pkgname-modem
+	$pkgname-wlan
+	"
+url="https://github.com/sm7150-mainline/firmware-xiaomi-davinci"
+arch="aarch64"
+license="proprietary"
+options="!check !strip !archcheck !tracedeps pmb:cross-native"
+_commit="53f9f5322adac2ab0663e4a9ceebd139e5aea11d"
+source="$pkgname-$_commit.tar.gz::$url/archive/$_commit/$pkgname-$_commit.tar.gz"
+builddir="$srcdir/$pkgname-$_commit"
+
+package() {
+	# parent package is empty
+	mkdir -p "$pkgdir"
+}
+
+adsp() {
+	pkgdesc="Xiaomi Mi 9T / Redmi K20 adsp firmware"
+
+	install -Dm644 "$builddir"/adsp* -t \
+		"$subpkgdir/lib/firmware/qcom/sm7150/davinci"
+}
+
+cdsp() {
+	pkgdesc="Xiaomi Mi 9T / Redmi K20 cdsp firmware"
+
+	install -Dm644 "$builddir"/cdsp* -t \
+		"$subpkgdir/lib/firmware/qcom/sm7150/davinci"
+}
+
+ipa() {
+	pkgdesc="Xiaomi Mi 9T / Redmi K20 ipa firmware"
+
+	install -Dm644 "$builddir"/ipa_fws.* -t \
+		"$subpkgdir/lib/firmware/qcom/sm7150/davinci"
+}
+
+modem() {
+	pkgdesc="Xiaomi Mi 9T / Redmi K20 modem firmware"
+
+	# cp because of the modem_pr directory
+	mkdir -p "$subpkgdir/lib/firmware/qcom/sm7150/davinci"
+	cp -r "$builddir"/modem* \
+		"$subpkgdir/lib/firmware/qcom/sm7150/davinci"
+	find "$subpkgdir/lib/firmware/qcom/sm7150/davinci" \
+		-type f -exec chmod 0644 {} \;
+}
+
+wlan() {
+	pkgdesc="Xiaomi Mi 9T / Redmi K20 wlan firmware"
+
+	install -Dm644 "$builddir"/wlanmdsp.mbn -t \
+		"$subpkgdir/lib/firmware/qcom/sm7150/davinci"
+}
+
+sha512sums="
+bd8f21d67dab5f06cbd76e4419ce9499d33d80189de556dab9218dfec85834f2244563d9246d0b56368ab284eae579510fe064e0578f6e050b418d0a6d7b14c5  firmware-xiaomi-davinci-53f9f5322adac2ab0663e4a9ceebd139e5aea11d.tar.gz
+"
